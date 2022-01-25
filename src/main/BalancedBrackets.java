@@ -1,6 +1,9 @@
 package main;
 
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class BalancedBrackets {
     /**
      * The function BalancedBrackets should return true if and only if
@@ -23,13 +26,38 @@ public class BalancedBrackets {
      */
     public static boolean hasBalancedBrackets(String str) {
         int brackets = 0;
+        int leftB = 0;
+        int rightB = 0;
+        boolean balanced = false;
+        ArrayList<Character> bList = new ArrayList<>();
+        if(str.equals("")){return true;}
+        if(!str.contains("[") && !str.contains("]")){return false;}
         for (char ch : str.toCharArray()) {
             if (ch == '[') {
-                brackets++;
+                bList.add(ch);
+                leftB++;
             } else if (ch == ']') {
-                brackets--;
+                bList.add(ch);
+                rightB++;
             }
         }
-        return brackets == 0;
+        if(Objects.equals(leftB, rightB)) {
+            if (bList.indexOf('[') == 0) {
+                brackets++;
+            }
+            if (bList.indexOf(']') == 1) {
+                brackets++;
+            }
+            if (brackets == 2) {
+                System.out.println("ding!");
+                balanced = true;
+            }
+        }
+        System.out.println(bList);
+        return balanced;
+    }
+    public static void main(String[] args) {
+        hasBalancedBrackets("[]");
+
     }
 }
